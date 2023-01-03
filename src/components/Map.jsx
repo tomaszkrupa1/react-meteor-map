@@ -13,12 +13,14 @@ const [isLoading, setIsLoading] = useState(true);
 
 useEffect(() => {
 
-  fetch('https://data.nasa.gov/resource/gh4g-9sfh.json')
+  fetch('https://data.nasa.gov/resource/gh4g-9sfh.json?$order=year%20desc&fall=Fell')
   .then((res) => {
     return res.json()
   })
   .then((data) => {
-    setMeteors(data)
+    setMeteors(data.filter((meteor) => {
+        return (meteor.geolocation)
+    }))
     setIsLoading(false)
   })
 }, []);
@@ -32,20 +34,20 @@ if (isLoading) {
     return (<div className="map">
         <MapContainer
           center={[51.505, -0.09]}
-          zoom={1}
+          zoom={2}
           scrollWheelZoom={true}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[meteors[0].reclat,meteors[0].reclong]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41]})} > 
-          
-          
+          {meteors.map((meteor) => (<Marker key={meteor.name} position={[meteor.geolocation.latitude, meteor.geolocation.longitude]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41]})} > 
             <Popup>
-              Name: {meteors[0].name} <br /> Mass: {meteors[0].mass}g
+              Name: {meteor.name} <br /> Mass: {meteor.mass}g <br /> Year: {meteor.year}
             </Popup>
-          </Marker>
+          </Marker>)
+          )}
+          
         </MapContainer>
       </div>)
 }
