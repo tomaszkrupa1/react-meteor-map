@@ -2,9 +2,9 @@ import "./Slider.css";
 import { useRef, useCallback, useEffect } from "react";
 import classnames from "classnames";
 
-export const YearSlider = ({
-  yearMin,
-  yearMax,
+export const MassSlider = ({
+  massMin,
+  massMax,
   setMinVal,
   setMaxVal,
   minVal,
@@ -16,9 +16,9 @@ export const YearSlider = ({
 
   const getPercent = useCallback(
     (value) => {
-      return Math.round(((value - yearMin) / (yearMax - yearMin)) * 100);
+      return Math.round(((value - massMin) / (massMax - massMin)) * 100);
     },
-    [yearMin, yearMax]
+    [massMin, massMax]
   );
 
   useEffect(() => {
@@ -45,11 +45,12 @@ export const YearSlider = ({
   }, [maxVal, getPercent]);
 
   return (
-    <div className="container">
+    <div className="container vertical">
         <input
           type="range"
-          min={yearMin}
-          max={yearMax}
+          step="100"
+          min={massMin}
+          max={massMax}
           value={minVal}
           ref={minValRef}
           onChange={(event) => {
@@ -58,13 +59,14 @@ export const YearSlider = ({
             event.target.value = value.toString();
           }}
           className={classnames("thumb thumb--zindex-3", {
-            "thumb--zindex-5": minVal > yearMax - 100,
+            "thumb--zindex-5": minVal > massMax - 100,
           })}
         ></input>
         <input
           type="range"
-          min={yearMin}
-          max={yearMax}
+          step="100"
+          min={massMin}
+          max={massMax}
           value={maxVal}
           ref={maxValRef}
           onChange={(event) => {
