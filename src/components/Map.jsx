@@ -25,13 +25,6 @@ useEffect(() => {
     const rawData = data.filter((meteor) => {
       return (meteor.geolocation && meteor.year)
   })
-    // yearMin = Math.min(...rawData.map((meteor) => {
-    //   return parseInt(meteor.year)
-    // }))
-    
-    // yearMax = Math.max(...rawData.map((meteor) => {
-    //   return parseInt(meteor.year)
-    // }))
     const filterData = rawData.filter((meteor) => {
       return (parseInt(meteor.year) >= minVal && parseInt(meteor.year) <= maxVal)
     })
@@ -58,14 +51,14 @@ if (isLoading) {
           />
           {meteors.map((meteor) => (<Marker key={meteor.name} position={[meteor.geolocation.latitude, meteor.geolocation.longitude]} icon={new Icon({iconUrl: markerIconPng, iconSize: [25, 41]})} > 
             <Popup>
-              Name: {meteor.name} <br /> Mass: {meteor.mass}g <br /> Year: {meteor.year}
+              Name: {meteor.name} <br /> Mass: {meteor.mass}g <br /> Year: {parseInt(meteor.year)}
             </Popup>
           </Marker>)
           )}
           
         </MapContainer>
         <br></br>
-        <YearSlider yearMin={yearMin} minVal={minVal} setMinVal={setMinVal} yearMax={yearMax} maxVal={maxVal} setMaxVal={setMaxVal} onChange={({ minVal, maxVal }) => console.log(`min = ${minVal}, max = ${maxVal}`)}/>
+        <YearSlider yearMin={yearMin} minVal={minVal} setMinVal={setMinVal} yearMax={yearMax} maxVal={maxVal} setMaxVal={setMaxVal} />
       </div>)
 }
 
