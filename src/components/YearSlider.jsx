@@ -2,9 +2,8 @@ import "./YearSlider.css";
 import { useState, useRef, useCallback, useEffect } from "react";
 const classnames = require("classnames")
 
-export const YearSlider = ({ yearMin, yearMax, onChange }) => {
-  const [minVal, setMinVal] = useState(yearMin);
-  const [maxVal, setMaxVal] = useState(yearMax);
+export const YearSlider = ({ yearMin, yearMax, onChange, setMinVal, setMaxVal, minVal, maxVal}) => {
+  
 
   const minValRef = useRef(null);
   const maxValRef = useRef(null);
@@ -46,6 +45,9 @@ useEffect(() => {
     <div ref={range} className="slider__range" />
     <div className="slider__left-value">{minVal}</div>
 <div className="slider__right-value">{maxVal}</div>
+        <div className="slider">
+          <div className="slider__track" />
+          <div className="slider__range" />
 
       <input
         type="range"
@@ -75,10 +77,7 @@ useEffect(() => {
           }}
         className="thumb thumb--zindex-4"
       ></input>
-      <div className="slider">
-        <div className="slider__track" />
-        <div className="slider__range" />
-      </div>
     </div>
+        </div>
   );
 };

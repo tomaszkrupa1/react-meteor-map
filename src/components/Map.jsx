@@ -11,10 +11,10 @@ export const Map = () => {
 
 const [meteors, setMeteors] = useState([]);
 const [isLoading, setIsLoading] = useState(true);
-const [yearRange, setYearRange] = useState([-Infinity, Infinity])
-const [massRange, setMassRange] = useState([-Infinity, Infinity])
 let yearMin = 861
 let yearMax = 2013
+const [minVal, setMinVal] = useState(yearMin);
+const [maxVal, setMaxVal] = useState(yearMax);
 
 useEffect(() => {
   fetch('https://data.nasa.gov/resource/gh4g-9sfh.json?fall=Fell')
@@ -32,11 +32,13 @@ useEffect(() => {
     // yearMax = Math.max(...rawData.map((meteor) => {
     //   return parseInt(meteor.year)
     // }))
-    
-    setMeteors(rawData)
+    const filterData = rawData.filter((meteor) => {
+      return (parseInt(meteor.year) >= minVal && parseInt(meteor.year) <= maxVal)
+    })
+    setMeteors(filterData)
     setIsLoading(false)
   })
-}, []);
+}, [minVal, maxVal]);
 
 if (isLoading) {
   return <div> IS LOADING</div>
@@ -63,7 +65,7 @@ if (isLoading) {
           
         </MapContainer>
         <br></br>
-        <YearSlider yearMin={yearMin} yearMax={yearMax} onChange={({ yearMin, yearMax }) => console.log(`min = ${yearMin}, max = ${yearMax}`)}/>
+        <YearSlider yearMin={yearMin} minVal={minVal} setMinVal={setMinVal} yearMax={yearMax} maxVal={maxVal} setMaxVal={setMaxVal} onChange={({ minVal, maxVal }) => console.log(`min = ${minVal}, max = ${maxVal}`)}/>
       </div>)
 }
 
