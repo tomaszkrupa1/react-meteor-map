@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import {Icon} from 'leaflet'
 import { useEffect, useState} from "react";
+import { YearSlider } from "./YearSlider";
 
 
 
@@ -10,17 +11,29 @@ export const Map = () => {
 
 const [meteors, setMeteors] = useState([]);
 const [isLoading, setIsLoading] = useState(true);
+const [yearRange, setYearRange] = useState([-Infinity, Infinity])
+const [massRange, setMassRange] = useState([-Infinity, Infinity])
+let yearMin = 861
+let yearMax = 2013
 
 useEffect(() => {
-
-  fetch('https://data.nasa.gov/resource/gh4g-9sfh.json?$order=year%20desc&fall=Fell')
+  fetch('https://data.nasa.gov/resource/gh4g-9sfh.json?fall=Fell')
   .then((res) => {
     return res.json()
   })
   .then((data) => {
-    setMeteors(data.filter((meteor) => {
-        return (meteor.geolocation)
-    }))
+    const rawData = data.filter((meteor) => {
+      return (meteor.geolocation && meteor.year)
+  })
+    // yearMin = Math.min(...rawData.map((meteor) => {
+    //   return parseInt(meteor.year)
+    // }))
+    
+    // yearMax = Math.max(...rawData.map((meteor) => {
+    //   return parseInt(meteor.year)
+    // }))
+    
+    setMeteors(rawData)
     setIsLoading(false)
   })
 }, []);
@@ -49,6 +62,8 @@ if (isLoading) {
           )}
           
         </MapContainer>
+        <br></br>
+        <YearSlider yearMin={yearMin} yearMax={yearMax} onChange={({ yearMin, yearMax }) => console.log(`min = ${yearMin}, max = ${yearMax}`)}/>
       </div>)
 }
 
