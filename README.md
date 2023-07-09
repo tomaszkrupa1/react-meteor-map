@@ -2,7 +2,7 @@
 
 ![Meteor Map MacBook Mockup](assets/macbook-pro-on-the-couch-stock-mockup-template@2x.png)
 
-React app showing meteor landings, featuring filters.
+React app showing global meteor landings
 
 ## To View This Project
 
@@ -39,4 +39,4 @@ I have gained confidence in REST API usage, and data visualisation, alongside so
 
 ### If we had more time...
 
-If we had more time we'd like to replace the slide buttons with a slider.
+If we had more time we'd like to replace the toggles with a slider, as it's more appropriate for the data being displayed.
