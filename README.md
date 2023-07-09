@@ -1,12 +1,16 @@
 # react-meteor-map
 
-React app showing meteor landings, featuring filters. 
+![Meteor Map MacBook Mockup](assets/macbook-pro-on-the-couch-stock-mockup-template@2x.png)
+
+React app showing meteor landings, featuring filters.
 
 ## To View This Project
 
-### `cd src`
+Live version available [here](https://lc-meteorite-landings.netlify.app/)
 
-Navigate to the React App.
+[www.lc-meteorite-landings.netlify.app](https://lc-meteorite-landings.netlify.app/)
+
+To view locally:
 
 ### `npm install`
 
@@ -19,16 +23,14 @@ Runs the app in the development mode.
 ## Stack
 
 - Javascript
-- React 
-- Lefleat.js
+- React
+- Leaflet.js
+- NASA API
 
 ## Conclusion
 
 ### Why we built this project this way?
 
-
 ### I gained confidence...
 
-
 ### If we had more time...
-
